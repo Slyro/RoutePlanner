@@ -119,7 +119,8 @@ namespace RoutePlanner
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox1.BackColor = Settings1.Default.NotEqualTerritoryColor = colorDialog1.Color;
+                textBox1.BackColor = colorDialog1.Color;
+                Settings1.Default.NotEqualTerritoryColor = colorDialog1.Color;
                 saveButtonControl();
             }
         }
@@ -127,7 +128,8 @@ namespace RoutePlanner
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox2.BackColor = Settings1.Default.NotFoundColor = colorDialog1.Color;
+                textBox2.BackColor = colorDialog1.Color;
+                Settings1.Default.NotFoundColor = colorDialog1.Color;
                 saveButtonControl();
             }
         }
@@ -135,7 +137,8 @@ namespace RoutePlanner
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox3.BackColor = Settings1.Default.PlannedWithErrorColor = colorDialog1.Color;
+                textBox3.BackColor = colorDialog1.Color;
+                Settings1.Default.PlannedWithErrorColor = colorDialog1.Color;
                 saveButtonControl();
             }
         }
@@ -143,7 +146,8 @@ namespace RoutePlanner
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox4.BackColor = Settings1.Default.SelectedOrderColor = colorDialog1.Color;
+                textBox4.BackColor = colorDialog1.Color;
+                Settings1.Default.SelectedOrderColor = colorDialog1.Color;
                 saveButtonControl();
             }
         }
@@ -151,7 +155,8 @@ namespace RoutePlanner
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox5.BackColor = Settings1.Default.UnplannedErrorColor = colorDialog1.Color;
+                textBox5.BackColor = colorDialog1.Color;
+                Settings1.Default.UnplannedErrorColor = colorDialog1.Color;
                 saveButtonControl();
             }
         }
@@ -159,7 +164,8 @@ namespace RoutePlanner
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox6.BackColor = Settings1.Default.PlannedFine = colorDialog1.Color;
+                textBox6.BackColor = colorDialog1.Color;
+                Settings1.Default.PlannedFine = colorDialog1.Color;
                 saveButtonControl();
             }
         }

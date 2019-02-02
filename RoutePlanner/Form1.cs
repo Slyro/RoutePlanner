@@ -47,7 +47,8 @@ namespace RoutePlanner
         {
             if (listBox1.Items.Count > 0)
             {
-                id1 = id2 = 0;
+                id1 = 0;
+                id2 = 0;
                 listBox1.Items.Clear();
             }
 
@@ -59,7 +60,6 @@ namespace RoutePlanner
                     Couriers.Clear();
                     if (ExcelManager.FindWorksheet(SheetName))
                     {
-
                         Couriers = ExcelManager.GetCouriers(Couriers);
                         OrderList = new List<string>[Couriers.Count + OLExpansion];
                         for (int i = 0; i < OrderList.Length - OLExpansion; i++)
@@ -71,7 +71,6 @@ namespace RoutePlanner
                     {
                         return;
                     }
-                    // listBox1.SetSelected(0, true);
                     driverButton.Enabled = true;
                     FillPostListBox();
                 }
@@ -258,6 +257,8 @@ namespace RoutePlanner
                         break;
                     case 5:// В рейсе с ошибкой
                         dataGridView1.Rows[i + j].Cells[0].Style.BackColor = Settings1.Default.PlannedWithErrorColor;
+                        break;
+                    default:
                         break;
                 }
                 if (NextIndex <= CourierOrdersCount)
