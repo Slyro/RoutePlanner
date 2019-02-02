@@ -50,29 +50,15 @@ namespace RoutePlanner
                 saveSettingsButton.Enabled = true;
             }
         }
-        private void saveButtonControl(bool state)
-        {
-            saveSettingsButton.Enabled = state;
-        }
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
-        {
-        }
+        private void saveButtonControl(bool state) => saveSettingsButton.Enabled = state;
         private void closeSettingsButton_Click(object sender, EventArgs e)
         {
             if (saveSettingsButton.Enabled)
-            {
                 if (MessageBox.Show("Сохранить изменения?", "Сохранение", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                {
                     SaveSettings();
-                }
-            }
-            this.Close();
+            Close();
         }
-        private dynamic ParseJsonData(string json)
-        {
-            return JObject.Parse(json);
-
-        }
+        private dynamic ParseJsonData(string json) => JObject.Parse(json);
         private void RouteLabelRename()
         {
             if (!TerritoriesIsEmpty())
@@ -115,10 +101,7 @@ namespace RoutePlanner
             }
             RouteLabelRename();
         }
-        private bool TerritoriesIsEmpty()
-        {
-            return string.IsNullOrEmpty(Settings1.Default.Territories);
-        }
+        private bool TerritoriesIsEmpty() => string.IsNullOrEmpty(Settings1.Default.Territories);
         private void GetCenterIdAndTerrs()
         {
             AKDTools.CenterID = Settings1.Default.CenterID = AKDTools.GetCenterID();
@@ -132,7 +115,6 @@ namespace RoutePlanner
             AKDTools.Territories = Settings1.Default.Territories;
             Settings1.Default.Save();
         }
-
         private void textBox1_DoubleClick(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)

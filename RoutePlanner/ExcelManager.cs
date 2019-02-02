@@ -21,7 +21,6 @@ namespace RoutePlanner
                     excelBook = new ExcelPackage(new FileInfo(openFileDialog.FileName));
                     return true;
                 }
-                //MessageBox.Show("Нужно выбрать файл Excel", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }
@@ -41,39 +40,37 @@ namespace RoutePlanner
                 MessageBox.Show("Нужно выбрать файл Excel", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
-
         }
         public Dictionary<string, int> GetCouriers(Dictionary<string, int> couriers)
         {
-            for (int i = 1; i <= MaxColumns; i++)
+            int i = 1;
+            while (i <= MaxColumns)
             {
                 if (worksheet.Cells[1, i].Value != null && worksheet.Cells[2, i].Value != null)
                     couriers.Add(worksheet.Cells[1, i].Value.ToString(), i);
                 else
                     continue;
+                ++i;
             }
             return couriers;
         }
         public List<string> GetOrders(int courier_column)
         {
-            List<string> list = new List<string>();
-            for (int i = 2; i <= MaxRows; i++)
+            var i = 2;
+            while (i <= MaxRows)
             {
                 if (worksheet.Cells[i, courier_column].Value == null)
                     continue;
-                list.Add(worksheet.Cells[i, courier_column].Text);
+                new List<string>().Add(worksheet.Cells[i, courier_column].Text);
+                ++i;
             }
-            return list;
+            return new List<string>();
         }
         public void DestroyObject()
         {
             if (excelBook != null)
                 excelBook.Dispose();
         }
-        public void Dispose()
-        {
-            DestroyObject();
-        }
+        public void Dispose() => DestroyObject();
     }
 }

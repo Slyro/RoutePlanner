@@ -108,7 +108,7 @@ namespace RoutePlanner
                 }
             }
 
-            this.BackColor = Color.FromKnownColor(KnownColor.Control);
+            BackColor = Color.FromKnownColor(KnownColor.Control);
             button1.Enabled = DriverManager.IsRunning();
             listBox1.Enabled = true;
         }
@@ -191,11 +191,10 @@ namespace RoutePlanner
             { 
                 dataGridView1.Columns.Add(listBox1.SelectedItem.ToString(), listBox1.SelectedItem.ToString());
             }
-            foreach (var item in OrderList[listBox1.SelectedIndex])
+            foreach (string item in OrderList[listBox1.SelectedIndex])
             {
                 dataGridView1.Rows.Add(item);
             }
-                
             dataGridView1.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
         private void FillPostListBox()
@@ -205,27 +204,23 @@ namespace RoutePlanner
             {
                 if (i < OrderList.Length-OLExpansion)
                 {
-                    listBox1.Items.Add(Couriers.ElementAt(i).Key + " - " + OrderList[i].Count);
+                    listBox1.Items.Add($"{Couriers.ElementAt(i).Key} - {OrderList[i].Count}");
                 }
                 else
                 {
                     if (OrderList[i] != null)
                     {
                         if(i == id1)
-                            listBox1.Items.Add("Незапланированно - " + OrderList[i].Count);
+                            listBox1.Items.Add($"Незапланированно - {OrderList[i].Count}");
                         if(i == id2)
-                            listBox1.Items.Add("Запланировано - " + OrderList[i].Count);
+                            listBox1.Items.Add($"Запланировано - {OrderList[i].Count}");
                     }
                 }
-
             }
         }
         private void ButtonRename()
         {
-            if (NextIndex > 0)
-                startbutton.Text = "Продолжить...";
-            else
-                startbutton.Text = "Выделение почты";
+            startbutton.Text = NextIndex > 0 ? "Продолжить..." : "Выделение почты";
         }
         private void Planning(int maxOrders, int index)
         {
@@ -264,7 +259,6 @@ namespace RoutePlanner
                     case 5:// В рейсе с ошибкой
                         dataGridView1.Rows[i + j].Cells[0].Style.BackColor = Settings1.Default.PlannedWithErrorColor;
                         break;
-
                 }
                 if (NextIndex <= CourierOrdersCount)
                 {
@@ -296,15 +290,14 @@ namespace RoutePlanner
                         if (OrderList[i] == null)
                         {
                             id1 = i;
-                            OrderList[id1] = AKDTools.GetAllPackages();
+                            OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
                             break;
-
                         }
                     }
                 }
                 else
                 {
-                    OrderList[id1] = AKDTools.GetAllPackages();
+                    OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
                 }
             }
             catch(NullReferenceException)
@@ -337,15 +330,14 @@ namespace RoutePlanner
                         if (OrderList[i] == null)
                         {
                             id2 = i;
-                            OrderList[id2] = AKDTools.GetPlannedOrders();
+                            OrderList[id2] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
                             break;
-
                         }
                     }
                 }
                 else
                 {
-                    OrderList[id2] = AKDTools.GetPlannedOrders();
+                    OrderList[id2] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
                 }
             }
             catch (NullReferenceException)
@@ -359,10 +351,9 @@ namespace RoutePlanner
         private void toolTip1_Popup(object sender, PopupEventArgs e)
         {
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Icon = Properties.Resources.icon;
+            Icon = Properties.Resources.icon;
             readbookbutton.Enabled = true;
             driverButton.Enabled = false;
             startbutton.Enabled = false;
@@ -370,8 +361,8 @@ namespace RoutePlanner
             LoadSettings();
             SettingsForm = new Form2();
 
-            toolTip1.SetToolTip(this.button1, "Загрузить список незапланированных заказов");
-            toolTip1.SetToolTip(this.getPlannedordersButton, "Загрузить список запланированых заказов из всех рейсов");
+            toolTip1.SetToolTip(button1, "Загрузить список незапланированных заказов");
+            toolTip1.SetToolTip(getPlannedordersButton, "Загрузить список запланированых заказов из всех рейсов");
 
         }
     }
