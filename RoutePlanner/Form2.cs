@@ -104,7 +104,8 @@ namespace RoutePlanner
         private bool TerritoriesIsEmpty() => string.IsNullOrEmpty(Settings1.Default.Territories);
         private void GetCenterIdAndTerrs()
         {
-            AKDTools.CenterID = Settings1.Default.CenterID = AKDTools.GetCenterID();
+            AKDTools.CenterID = AKDTools.GetCenterID();
+            Settings1.Default.CenterID = AKDTools.GetCenterID();
             Settings1.Default.Territories = AKDTools.GetTerritories();
         }
         private void SaveSettings()
