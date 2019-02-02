@@ -9,15 +9,13 @@ namespace RoutePlanner
 {
     public partial class Form1 : Form
     {
-        string excelFilePath = string.Empty;
-        int NextIndex = 0;
+        int NextIndex;
         readonly string SheetName = "Курьеры";
         const int WaitTime = 20;
         int MaxOrdersPerTime = 15;
-        int SelectedOrdersCount = 0;
-        int OLExpansion = 2;
-        int id1 = 0;
-        int id2 = 0;
+        int SelectedOrdersCount;
+        readonly int OLExpansion = 2;
+        int id1, id2;
         #region Функциональные объекты
         Form2 SettingsForm;
         Dictionary<string, int> Couriers = new Dictionary<string, int>();
@@ -29,7 +27,6 @@ namespace RoutePlanner
         public Form1()
         {
             InitializeComponent();
-
         }
         public void LoadSettings()
         {
@@ -79,7 +76,7 @@ namespace RoutePlanner
         }
         private void driverButton_Click(object sender, EventArgs e)
         {
-            this.BackColor = Color.Red;
+            BackColor = Color.Red;
             //Запуск браузера.
             try
             {
@@ -90,10 +87,8 @@ namespace RoutePlanner
                 MessageBox.Show("Нет ссылки на страницу ПО КД.");
             }
             //Вход по логину и паролю
-            //AKDPageObjects loginPage = new AKDPageObjects();
             try
-            {
-                //    loginPage.Login(AKDTools.Login, AKDTools.Password);
+            {   
                 DriverManager.FindElementByName("login").SendKeys(AKDTools.Login);
                 DriverManager.FindElementByName("password").SendKeys(AKDTools.Password);
                 DriverManager.FindElementById("mx.app.page.Login.enter").Click();
@@ -131,10 +126,12 @@ namespace RoutePlanner
             NewCourier();
             ButtonRename();
         }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             DriverManager.Quit();
         }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDown1.Enabled = checkBox1.Checked;
@@ -258,8 +255,6 @@ namespace RoutePlanner
                     case 5:// В рейсе с ошибкой
                         dataGridView1.Rows[i + j].Cells[0].Style.BackColor = Settings1.Default.PlannedWithErrorColor;
                         break;
-                    default:
-                        break;
                 }
                 if (NextIndex <= CourierOrdersCount)
                 {
@@ -348,10 +343,6 @@ namespace RoutePlanner
             }
             FillPostListBox();
         }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-        }
         private void Form1_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icon;
@@ -364,7 +355,6 @@ namespace RoutePlanner
 
             toolTip1.SetToolTip(button1, "Загрузить список незапланированных заказов");
             toolTip1.SetToolTip(getPlannedordersButton, "Загрузить список запланированых заказов из всех рейсов");
-
         }
     }
 }
