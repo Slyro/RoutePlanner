@@ -20,9 +20,9 @@ namespace RoutePlanner
         Form2 SettingsForm;
         Dictionary<string, int> Couriers = new Dictionary<string, int>();
         Dictionary<int, string> Territories = new Dictionary<int, string>();
-        List<string> [] OrderList;
+        List<string>[] OrderList;
         public int CourierOrdersCount => OrderList[listBox1.SelectedIndex].Count;
-        public string Url { get => AKDTools.Link; set => AKDTools.Link = value; }     
+        public static string Url { get => AKDTools.Link; set => AKDTools.Link = value; }
         #endregion
         public Form1()
         {
@@ -35,7 +35,7 @@ namespace RoutePlanner
             AKDTools.Password = Settings1.Default.Password;
             AKDTools.Territories = Settings1.Default.Territories;
             AKDTools.CenterID = Settings1.Default.CenterID;
-            if(!string.IsNullOrEmpty(AKDTools.Territories))
+            if (!string.IsNullOrEmpty(AKDTools.Territories))
             {
                 ParseJsonData(AKDTools.Territories);
             }
@@ -72,7 +72,7 @@ namespace RoutePlanner
                     FillPostListBox();
                 }
             }
-            
+
         }
         private void driverButton_Click(object sender, EventArgs e)
         {
@@ -88,12 +88,12 @@ namespace RoutePlanner
             }
             //Вход по логину и паролю
             try
-            {   
+            {
                 DriverManager.FindElementByName("login").SendKeys(AKDTools.Login);
                 DriverManager.FindElementByName("password").SendKeys(AKDTools.Password);
                 DriverManager.FindElementById("mx.app.page.Login.enter").Click();
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 MessageBox.Show("Не удалось выполнить вход в ПО курьерской доставки.");
                 if (DriverManager.IsRunning())
@@ -145,7 +145,7 @@ namespace RoutePlanner
         {
             MaxOrdersPerTime = (int)numericUpDown1.Value;
         }
-        
+
         private void NewCourier()
         {
             if (AKDTools.HaveSelectedOrder)
@@ -172,7 +172,7 @@ namespace RoutePlanner
         private void FillDataGridByOrders()
         {
             dataGridView1.Columns.Clear();
-            if (listBox1.SelectedIndex < OrderList.Length-OLExpansion)
+            if (listBox1.SelectedIndex < OrderList.Length - OLExpansion)
             {
                 try
                 {
@@ -184,7 +184,7 @@ namespace RoutePlanner
                 }
             }
             else
-            { 
+            {
                 dataGridView1.Columns.Add(listBox1.SelectedItem.ToString(), listBox1.SelectedItem.ToString());
             }
             foreach (string item in OrderList[listBox1.SelectedIndex])
@@ -198,7 +198,7 @@ namespace RoutePlanner
             listBox1.Items.Clear();
             for (int i = 0; i < OrderList.Length; i++)
             {
-                if (i < OrderList.Length-OLExpansion)
+                if (i < OrderList.Length - OLExpansion)
                 {
                     listBox1.Items.Add($"{Couriers.ElementAt(i).Key} - {OrderList[i].Count}");
                 }
@@ -206,9 +206,9 @@ namespace RoutePlanner
                 {
                     if (OrderList[i] != null)
                     {
-                        if(i == id1)
+                        if (i == id1)
                             listBox1.Items.Add($"Незапланированно - {OrderList[i].Count}");
-                        if(i == id2)
+                        if (i == id2)
                             listBox1.Items.Add($"Запланировано - {OrderList[i].Count}");
                     }
                 }
@@ -274,7 +274,7 @@ namespace RoutePlanner
                 listBox2.Items.Add(item.Value);
             }
         }
-        
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             try
@@ -296,9 +296,9 @@ namespace RoutePlanner
                     OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
                 }
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Драйвер на запущен.","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("Драйвер на запущен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             FillPostListBox();

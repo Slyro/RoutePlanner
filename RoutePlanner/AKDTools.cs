@@ -55,8 +55,8 @@ namespace RoutePlanner
             {
                 DriverManager.ExecuteScript(getplannedorders);
                 return (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return getPlannedOrders()");
-            }    
-        }      
+            }
+        }
         public static string GetTerritories()
         {
             if (!IsBusy && IsReady)
@@ -80,7 +80,7 @@ namespace RoutePlanner
                 }
             }
             catch (WebDriverException) { }
-            
+
         } //Работает и ладно...
         public static void Renew() => DriverManager.ExecuteScript("OpenAjax.hub.publish(\"data.reload\")");
     }

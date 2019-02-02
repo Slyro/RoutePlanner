@@ -26,19 +26,20 @@ namespace RoutePlanner
         }
         public bool FindWorksheet(string sheet_name)
         {
-            if (excelBook == null)
+            if (excelBook != null)
             {
-                MessageBox.Show("Нужно выбрать файл Excel", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-            else
-            {
-                if (excelBook.Workbook.Worksheets[sheet_name] is null)
+                worksheet = excelBook.Workbook.Worksheets[sheet_name];
+                if (worksheet is null)
                 {
                     MessageBox.Show("В книге не найден лист " + sheet_name + "\"", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 return true;
+            }
+            else
+            {
+                MessageBox.Show("Нужно выбрать файл Excel", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
         }
         public Dictionary<string, int> GetCouriers(Dictionary<string, int> couriers)
