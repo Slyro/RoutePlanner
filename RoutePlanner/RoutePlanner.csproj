@@ -89,7 +89,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AKDPageObjects.cs" />
     <Compile Include="AKDTools.cs" />
     <Compile Include="DriverManager.cs" />
     <Compile Include="ExcelManager.cs" />

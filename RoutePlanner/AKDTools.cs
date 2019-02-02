@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace RoutePlanner
 {
@@ -29,24 +30,40 @@ namespace RoutePlanner
             string zones = "[";
             for (int i = 0; i < zoneID.Length - 1; i++)
             {
-                zones += $"{zoneID[i]},";
+                new StringBuilder().Append($"{zoneID[i]},");
             }
-            zones += $"{zoneID[zoneID.Length - 1]}]";
-            return Convert.ToInt32(DriverManager.ExecuteScript($"return srch(\"{order_track.ToUpper()}\",{zones},Ct.UnplannedOrdersPanel.Panel.orders)"));
+            zones += $"{new StringBuilder().ToString()}{zoneID[zoneID.Length - 1]}]";
+            return Convert.ToInt32(DriverManager.ExecuteScript($"return srch(\"{order_track.ToUpperInvariant()}\",{zones},Ct.UnplannedOrdersPanel.Panel.orders)"));
         }
         public static int GetCenterID() => Convert.ToInt32(DriverManager.ExecuteScript("return Ct.Globalfilter.distributionCentresList[0].id"));
         public static List<string> GetOrderList(GetOrders orders)
         {
-            DriverManager.ExecuteScript(getunplannedorders);
-            ReadOnlyCollection<object> lst = (ReadOnlyCollection<object>)DriverManager.ExecuteScript(orders == GetOrders.All ? "return alldrops()" : "return getPlannedOrders()");
+            IEnumerable<object> lst = null;
+            switch (orders)
+            {
+                case (GetOrders.All):
+                    DriverManager.ExecuteScript(getunplannedorders);
+                    lst = (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return alldrops()");
+                    break;
+                case (GetOrders.Planned):
+                    DriverManager.ExecuteScript(getplannedorders);
+                    lst = (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return getPlannedOrders()");
+                    break;
+                default:
+                    break;
+            }       
             foreach (object item in lst)
+            {
                 new List<string>().Add(item.ToString());
+            }
             return new List<string>();
         }      
         public static string GetTerritories()
         {
             if (!IsBusy && IsReady)
+            {
                 DriverManager.Url = $"{DriverManager.Url.Remove(DriverManager.Url.LastIndexOf(".ru") + 3)}/gt/gt-api/scheduling-zones/?aocId={CenterID}";
+            }
             DriverManager.Back();
             return PropertiesCollections.driver.FindElement(By.TagName("pre")).Text;
         }
@@ -57,14 +74,14 @@ namespace RoutePlanner
                 while (true)
                 {
                     if (!IsBusy)
+                    {
                         break;
+                    }
                     System.Threading.Thread.Sleep(500);
                 }
             }
-            catch (WebDriverException)
-            {
-
-            }
+            catch (WebDriverException) { }
+            
         } //Работает и ладно...
         public static void Renew() => DriverManager.ExecuteScript("OpenAjax.hub.publish(\"data.reload\")");
     }

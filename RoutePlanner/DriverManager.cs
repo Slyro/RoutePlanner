@@ -19,12 +19,6 @@ namespace RoutePlanner
             ImplicitlyWait(implicitWait);
             GoToUrl(site_url);
         }
-        public static void CreateDriverAndOpenUrl(string site_url)
-        {
-            StartDriver();
-            ImplicitlyWait(TimeSpan.FromSeconds(10));
-            GoToUrl(site_url);
-        }
         public static void NewTab() => ExecuteScript("windows.open();");
         public static void NewTab(string url) => ExecuteScript("windows.open(" + url + ");");
         public static IWebElement FindElementById(string id) => PropertiesCollections.driver.FindElement(By.Id(id));
@@ -43,7 +37,9 @@ namespace RoutePlanner
         public static void Quit()
         {
             if (PropertiesCollections.driver != null)
+            {
                 PropertiesCollections.driver.Quit();
+            }
         }
         public static bool IsRunning() => PropertiesCollections.driver != null ? true : false;
     }

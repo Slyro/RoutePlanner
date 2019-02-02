@@ -109,9 +109,15 @@ namespace RoutePlanner
         }
         private void SaveSettings()
         {
-            AKDTools.Link = Settings1.Default.AKDLink = linkTextBox.Text;
-            AKDTools.Login = Settings1.Default.Login = loginTextBox.Text;
-            AKDTools.Password = Settings1.Default.Password = passwordTextBox.Text;
+            AKDTools.Link = linkTextBox.Text;
+            Settings1.Default.AKDLink = linkTextBox.Text;
+
+            AKDTools.Login = loginTextBox.Text;
+            Settings1.Default.Login = loginTextBox.Text;
+
+            AKDTools.Password = passwordTextBox.Text;
+            Settings1.Default.Password = passwordTextBox.Text;
+
             AKDTools.Territories = Settings1.Default.Territories;
             Settings1.Default.Save();
         }
