@@ -28,7 +28,7 @@ namespace RoutePlanner
         private void saveSettingsButton_Click(object sender, EventArgs e)
         {
             SaveSettings();
-            MessageBox.Show("Настройки сохранены","Сохранить...", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("Настройки сохранены", "Сохранить...", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             saveButtonControl(false);
         }
         private void linkTextBox_TextChanged(object sender, EventArgs e)
@@ -45,21 +45,23 @@ namespace RoutePlanner
         }
         private void saveButtonControl()
         {
-            if(!saveSettingsButton.Enabled)
+            if (!saveSettingsButton.Enabled)
+            {
                 saveSettingsButton.Enabled = true;
+            }
         }
         private void saveButtonControl(bool state)
         {
-                saveSettingsButton.Enabled = state;
+            saveSettingsButton.Enabled = state;
         }
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
         private void closeSettingsButton_Click(object sender, EventArgs e)
         {
-            if(saveSettingsButton.Enabled)
+            if (saveSettingsButton.Enabled)
             {
-                if (MessageBox.Show("Сохранить изменения?","Сохранение",MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("Сохранить изменения?", "Сохранение", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     SaveSettings();
                 }
@@ -68,8 +70,8 @@ namespace RoutePlanner
         }
         private dynamic ParseJsonData(string json)
         {
-              return JObject.Parse(json);
-            
+            return JObject.Parse(json);
+
         }
         private void RouteLabelRename()
         {
@@ -88,7 +90,7 @@ namespace RoutePlanner
                 {
                     GetCenterIdAndTerrs();
                 }
-                catch(NullReferenceException)
+                catch (NullReferenceException)
                 {
                     MessageBox.Show("Драйвер не запущен" + Environment.NewLine + "Кнопку нужно нажать на загруженной странице ПОКД");
                     return;
@@ -133,7 +135,7 @@ namespace RoutePlanner
 
         private void textBox1_DoubleClick(object sender, EventArgs e)
         {
-            if(colorDialog1.ShowDialog() == DialogResult.OK)
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 textBox1.BackColor = Settings1.Default.NotEqualTerritoryColor = colorDialog1.Color;
                 saveButtonControl();

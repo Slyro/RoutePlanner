@@ -1,6 +1,7 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
+
 namespace RoutePlanner
 {
     class DriverManager
@@ -33,7 +34,7 @@ namespace RoutePlanner
             PropertiesCollections.service = ChromeDriverService.CreateDefaultService();
             PropertiesCollections.service.HideCommandPromptWindow = true;
             PropertiesCollections.driver = new ChromeDriver(PropertiesCollections.service);
-            PropertiesCollections.javaScriptExecutor = PropertiesCollections.driver as IJavaScriptExecutor;  
+            PropertiesCollections.javaScriptExecutor = PropertiesCollections.driver as IJavaScriptExecutor;
         }
         private static void ImplicitlyWait(TimeSpan waitTime) => PropertiesCollections.driver.Manage().Timeouts().ImplicitWait = waitTime;
         private static void GoToUrl(string url) => PropertiesCollections.driver.Navigate().GoToUrl(url);

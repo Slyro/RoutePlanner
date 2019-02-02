@@ -1,8 +1,8 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using OfficeOpenXml;
 using System.IO;
+using System.Windows.Forms;
 
 namespace RoutePlanner
 {
@@ -14,7 +14,7 @@ namespace RoutePlanner
         public int MaxColumns => worksheet.Dimension.Columns;
         public bool OpenExcelFile()
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Книга Excel (*.xlsx)|*.xlsx" ,Title = "Выберите файл..."})
+            using (OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Книга Excel (*.xlsx)|*.xlsx", Title = "Выберите файл..." })
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -31,25 +31,25 @@ namespace RoutePlanner
             {
                 if ((worksheet = excelBook.Workbook.Worksheets[sheet_name]) is null)
                 {
-                    MessageBox.Show("В книге не найден лист "+sheet_name+"\"","Ошибка",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("В книге не найден лист " + sheet_name + "\"", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 return true;
             }
             else
             {
-                MessageBox.Show("Нужно выбрать файл Excel","Внимание",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("Нужно выбрать файл Excel", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
 
         }
-        public Dictionary<string, int> GetCouriers(Dictionary<string,int> couriers)
+        public Dictionary<string, int> GetCouriers(Dictionary<string, int> couriers)
         {
             for (int i = 1; i <= MaxColumns; i++)
             {
                 if (worksheet.Cells[1, i].Value != null && worksheet.Cells[2, i].Value != null)
-                    couriers.Add(worksheet.Cells[1, i].Value.ToString(),i);
+                    couriers.Add(worksheet.Cells[1, i].Value.ToString(), i);
                 else
                     continue;
             }
