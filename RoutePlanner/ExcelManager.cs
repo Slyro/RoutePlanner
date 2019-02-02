@@ -8,8 +8,8 @@ namespace RoutePlanner
 {
     class ExcelManager : IDisposable
     {
-        ExcelWorksheet worksheet;
-        ExcelPackage excelBook;
+        private ExcelWorksheet worksheet;
+        private ExcelPackage excelBook;
         public int MaxRows => worksheet.Dimension.Rows;
         public int MaxColumns => worksheet.Dimension.Columns;
         public bool OpenExcelFile()

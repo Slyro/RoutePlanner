@@ -202,10 +202,6 @@
             this.getPlannedordersButton.UseVisualStyleBackColor = true;
             this.getPlannedordersButton.Click += new System.EventHandler(this.getPlannedordersButton_Click);
             // 
-            // toolTip1
-            // 
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
-            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(12, 82);
