@@ -38,25 +38,24 @@ namespace RoutePlanner
         public static int GetCenterID() => Convert.ToInt32(DriverManager.ExecuteScript("return Ct.Globalfilter.distributionCentresList[0].id"));
         public static List<string> GetOrderList(GetOrders orders)
         {
-            IEnumerable<object> lst = null;
-            switch (orders)
-            {
-                case (GetOrders.All):
-                    DriverManager.ExecuteScript(getunplannedorders);
-                    lst = (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return alldrops()");
-                    break;
-                case (GetOrders.Planned):
-                    DriverManager.ExecuteScript(getplannedorders);
-                    lst = (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return getPlannedOrders()");
-                    break;
-                default:
-                    break;
-            }       
-            foreach (object item in lst)
+            foreach (object item in getRawOrderList(orders))
             {
                 new List<string>().Add(item.ToString());
             }
             return new List<string>();
+        }
+        private static ReadOnlyCollection<object> getRawOrderList(GetOrders orders)
+        {
+            if (orders == GetOrders.All)
+            {
+                DriverManager.ExecuteScript(getunplannedorders);
+                return (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return alldrops()");
+            }
+            else
+            {
+                DriverManager.ExecuteScript(getplannedorders);
+                return (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return getPlannedOrders()");
+            }    
         }      
         public static string GetTerritories()
         {
