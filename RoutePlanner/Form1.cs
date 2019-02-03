@@ -343,6 +343,7 @@ namespace RoutePlanner
             }
             FillPostListBox();
         }
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
         private void Form1_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icon;
