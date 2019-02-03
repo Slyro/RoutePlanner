@@ -127,12 +127,10 @@ namespace RoutePlanner
             NewCourier();
             ButtonRename();
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             DriverManager.Quit();
         }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDown1.Enabled = checkBox1.Checked;
@@ -146,11 +144,12 @@ namespace RoutePlanner
         {
             MaxOrdersPerTime = (int)numericUpDown1.Value;
         }
-
         private void NewCourier()
         {
             if (AKDTools.HaveSelectedOrder)
+            {
                 AKDTools.Renew();
+            }
             NextIndex = 0;
             SelectedOrdersCount = 0;
             ButtonRename();
@@ -160,8 +159,12 @@ namespace RoutePlanner
         private void EnableSelectionButton()
         {
             if (!startbutton.Enabled)
+            {
                 if (DriverManager.IsRunning())
+                {
                     startbutton.Enabled = true;
+                }
+            }
         }
         private void DeleteBackColor()
         {
@@ -188,9 +191,9 @@ namespace RoutePlanner
             {
                 dataGridView1.Columns.Add(listBox1.SelectedItem.ToString(), listBox1.SelectedItem.ToString());
             }
-            foreach (string item in OrderList[listBox1.SelectedIndex])
+            for (int i = 0; i < OrderList[listBox1.SelectedIndex].Count; i++)
             {
-                dataGridView1.Rows.Add(item);
+                dataGridView1.Rows.Add(OrderList[listBox1.SelectedIndex][i]);
             }
             dataGridView1.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
@@ -275,7 +278,6 @@ namespace RoutePlanner
                 listBox2.Items.Add(item.Value);
             }
         }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
             try
