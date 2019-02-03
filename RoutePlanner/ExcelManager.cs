@@ -62,7 +62,9 @@ namespace RoutePlanner
             while (i <= MaxRows)
             {
                 if (worksheet.Cells[i, courier_column].Value == null)
+                {
                     continue;
+                }
                 list.Add(worksheet.Cells[i, courier_column].Text);
                 ++i;
             }
