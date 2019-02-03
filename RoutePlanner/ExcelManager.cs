@@ -58,14 +58,15 @@ namespace RoutePlanner
         public List<string> GetOrders(int courier_column)
         {
             var i = 2;
+            List<string> list = new List<string>();
             while (i <= MaxRows)
             {
                 if (worksheet.Cells[i, courier_column].Value == null)
                     continue;
-                new List<string>().Add(worksheet.Cells[i, courier_column].Text);
+                list.Add(worksheet.Cells[i, courier_column].Text);
                 ++i;
             }
-            return new List<string>();
+            return list;
         }
         public void DestroyObject()
         {

@@ -85,6 +85,7 @@ namespace RoutePlanner
             catch (Exception)
             {
                 MessageBox.Show("Нет ссылки на страницу ПО КД.");
+                return;
             }
             //Вход по логину и паролю
             try
@@ -286,14 +287,14 @@ namespace RoutePlanner
                         if (OrderList[i] == null)
                         {
                             id1 = i;
-                            OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
+                            OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.All);
                             break;
                         }
                     }
                 }
                 else
                 {
-                    OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
+                    OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.All);
                 }
             }
             catch (NullReferenceException)

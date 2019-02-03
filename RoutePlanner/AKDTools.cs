@@ -27,22 +27,23 @@ namespace RoutePlanner
         public static void ScriptInject() => DriverManager.ExecuteScript(script);
         public static int SelectOrder(string order_track, int[] zoneID)
         {
-            string zones = "[";
+            StringBuilder sb = new StringBuilder("[");
             for (int i = 0; i < zoneID.Length - 1; i++)
             {
-                new StringBuilder().Append($"{zoneID[i]},");
+                sb.Append($"{zoneID[i]},");
             }
-            zones += $"{new StringBuilder().ToString()}{zoneID[zoneID.Length - 1]}]";
-            return Convert.ToInt32(DriverManager.ExecuteScript($"return srch(\"{order_track.ToUpperInvariant()}\",{zones},Ct.UnplannedOrdersPanel.Panel.orders)"));
+            sb.Append($"{zoneID[zoneID.Length - 1]}]");
+            return Convert.ToInt32(DriverManager.ExecuteScript($"return srch(\"{order_track.ToUpperInvariant()}\",{sb.ToString()},Ct.UnplannedOrdersPanel.Panel.orders)"));
         }
         public static int GetCenterID() => Convert.ToInt32(DriverManager.ExecuteScript("return Ct.Globalfilter.distributionCentresList[0].id"));
         public static List<string> GetOrderList(GetOrders orders)
         {
+            List<string> list = new List<string>();
             foreach (object item in getRawOrderList(orders))
             {
-                new List<string>().Add(item.ToString());
+                list.Add(item.ToString());
             }
-            return new List<string>();
+            return list;
         }
         private static ReadOnlyCollection<object> getRawOrderList(GetOrders orders)
         {
@@ -63,8 +64,11 @@ namespace RoutePlanner
             {
                 DriverManager.Url = $"{DriverManager.Url.Remove(DriverManager.Url.LastIndexOf(".ru") + 3)}/gt/gt-api/scheduling-zones/?aocId={CenterID}";
             }
+            string tmp = PropertiesCollections.driver.FindElement(By.TagName("pre")).Text;
             DriverManager.Back();
-            return PropertiesCollections.driver.FindElement(By.TagName("pre")).Text;
+            return tmp;
+
+
         }
         public static void JQLoaderWait()
         {
