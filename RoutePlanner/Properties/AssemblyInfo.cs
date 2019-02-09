@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RoutePlanner")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EMS Russian post")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RoutePlanner")]
-[assembly: AssemblyCopyright("Copyright ©  2017 Valeriy Stepanskoy")]
+[assembly: AssemblyCopyright("Copyright ©  2019 Valeriy Stepanskoy")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
