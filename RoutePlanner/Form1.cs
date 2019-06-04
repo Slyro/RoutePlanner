@@ -347,6 +347,12 @@ namespace RoutePlanner
             FillPostListBox();
         }
         private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
+
+        private void степанскойВА2019ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Валерий Степанской 2017 - 2019\n\n\nПрограмма создана на основе проектов seleniumHQ, Json.Net, EPPlus", "О программе",MessageBoxButtons.OK,MessageBoxIcon.Information);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icon;
