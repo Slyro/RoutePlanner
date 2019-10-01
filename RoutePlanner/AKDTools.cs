@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RoutePlanner
 {
-    class AKDTools
+    static class AKDTools
     {
         public enum GetOrders
         {
@@ -23,8 +23,20 @@ namespace RoutePlanner
         private static readonly string getplannedorders = "vehicles=JourneyUtil.getVehicles(),getPlannedOrders=function(){for(var e=[],r=0,n=0;n<vehicles.length;n+=1)for(var s=0;s<vehicles[n].runs.length;s+=1)for(var l=0;l<vehicles[n].runs[s].orders.length;l+=1)e[r]=vehicles[n].runs[s].orders[l].name,r+=1;return e};";
         public static bool IsBusy => !(bool)DriverManager.ExecuteScript("return Schedule.isPlanningProcess") && !(bool)DriverManager.ExecuteScript("return Ct.Loader.isShowing") ? false : true;
         public static bool HaveSelectedOrder => !((bool)DriverManager.ExecuteScript("return Ct.Selection.selectedOrder == null"));
+        public static int GetCenterID() => Convert.ToInt32(DriverManager.ExecuteScript("return Ct.Globalfilter.distributionCentresList[0].id"));
         public static bool IsReady => (bool)DriverManager.ExecuteScript("return $.isReady");
+
+        /// <summary>
+        /// Инъекция JS-кода для выделения объектов задач на странице.
+        /// </summary>
         public static void ScriptInject() => DriverManager.ExecuteScript(script);
+
+        /// <summary>
+        /// Выделяет указанную задачу на странице ПОКД входящую в выбранные зоны.
+        /// </summary>
+        /// <param name="order_track"></param>
+        /// <param name="zoneID"></param>
+        /// <returns></returns>
         public static int SelectOrder(string order_track, int[] zoneID)
         {
             StringBuilder sb = new StringBuilder("[");
@@ -35,28 +47,28 @@ namespace RoutePlanner
             sb.Append($"{zoneID[zoneID.Length - 1]}]");
             return Convert.ToInt32(DriverManager.ExecuteScript($"return srch(\"{order_track.ToUpperInvariant()}\",{sb.ToString()},Ct.UnplannedOrdersPanel.Panel.orders)"));
         }
-        public static int GetCenterID() => Convert.ToInt32(DriverManager.ExecuteScript("return Ct.Globalfilter.distributionCentresList[0].id"));
+        
         public static List<string> GetOrderList(GetOrders orders)
         {
-            List<string> list = new List<string>();
-            foreach (object item in getRawOrderList(orders))
-            {
-                list.Add(item.ToString());
-            }
-            return list;
-        }
-        private static ReadOnlyCollection<object> getRawOrderList(GetOrders orders)
-        {
+            ReadOnlyCollection<object> raw;
             if (orders == GetOrders.All)
             {
                 DriverManager.ExecuteScript(getunplannedorders);
-                return (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return alldrops()");
+                raw = (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return alldrops()");
             }
             else
             {
                 DriverManager.ExecuteScript(getplannedorders);
-                return (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return getPlannedOrders()");
+                raw = (ReadOnlyCollection<object>)DriverManager.ExecuteScript("return getPlannedOrders()");
             }
+
+            List<string> list = new List<string>();
+            foreach (object item in raw)
+            {
+                list.Add(item.ToString());
+            }
+
+            return list;
         }
         public static string GetTerritories()
         {
@@ -64,12 +76,13 @@ namespace RoutePlanner
             {
                 DriverManager.Url = $"{DriverManager.Url.Remove(DriverManager.Url.LastIndexOf(".ru") + 3)}/gt/gt-api/scheduling-zones/?aocId={CenterID}";
             }
-            string tmp = PropertiesCollections.driver.FindElement(By.TagName("pre")).Text;
             DriverManager.Back();
-            return tmp;
-
-
+            return PropertiesCollections.driver.FindElement(By.TagName("pre")).Text;
         }
+
+        /// <summary>
+        /// Ожидание выполнения JQuery на странице.
+        /// </summary>
         public static void JQLoaderWait()
         {
             try

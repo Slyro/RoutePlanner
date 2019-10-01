@@ -39,8 +39,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingStripMenuButton = new System.Windows.Forms.ToolStripMenuItem();
             this.обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обновитьДанныйОМаршрутахToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.степанскойВА2019ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -74,7 +74,7 @@
             this.driverButton.TabIndex = 3;
             this.driverButton.Text = "Запуск драйвера";
             this.driverButton.UseVisualStyleBackColor = true;
-            this.driverButton.Click += new System.EventHandler(this.driverButton_Click);
+            this.driverButton.Click += new System.EventHandler(this.DriverButton_Click);
             // 
             // listBox1
             // 
@@ -86,7 +86,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(194, 164);
             this.listBox1.TabIndex = 4;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
@@ -105,7 +105,7 @@
             this.startbutton.TabIndex = 6;
             this.startbutton.Text = "Начать";
             this.startbutton.UseVisualStyleBackColor = true;
-            this.startbutton.Click += new System.EventHandler(this.startbutton_Click);
+            this.startbutton.Click += new System.EventHandler(this.Startbutton_Click);
             // 
             // restartButton
             // 
@@ -115,7 +115,7 @@
             this.restartButton.TabIndex = 7;
             this.restartButton.Text = "Заново";
             this.restartButton.UseVisualStyleBackColor = true;
-            this.restartButton.Click += new System.EventHandler(this.restartButton_Click);
+            this.restartButton.Click += new System.EventHandler(this.RestartButton_Click);
             // 
             // listBox2
             // 
@@ -152,28 +152,28 @@
             this.обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
             this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.обновитьToolStripMenuItem.Text = "Настройки";
-            this.обновитьToolStripMenuItem.Click += new System.EventHandler(this.обновитьToolStripMenuItem_Click);
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            this.обновитьToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
             // обновитьДанныйОМаршрутахToolStripMenuItem
             // 
             this.обновитьДанныйОМаршрутахToolStripMenuItem.Name = "обновитьДанныйОМаршрутахToolStripMenuItem";
             this.обновитьДанныйОМаршрутахToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.обновитьДанныйОМаршрутахToolStripMenuItem.Text = "Обновить данный о маршрутах";
-            this.обновитьДанныйОМаршрутахToolStripMenuItem.Click += new System.EventHandler(this.применитьНовыеНастройкиToolStripMenuItem_Click);
+            this.обновитьДанныйОМаршрутахToolStripMenuItem.Click += new System.EventHandler(this.ApplyNewSettinsToolStripMenuItem_Click);
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
             // 
             // степанскойВА2019ToolStripMenuItem
             // 
-            this.степанскойВА2019ToolStripMenuItem.Name = "степанскойВА2019ToolStripMenuItem";
+            this.степанскойВА2019ToolStripMenuItem .Name = "степанскойВА2019ToolStripMenuItem";
             this.степанскойВА2019ToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.степанскойВА2019ToolStripMenuItem.Text = "О программе";
-            this.степанскойВА2019ToolStripMenuItem.Click += new System.EventHandler(this.степанскойВА2019ToolStripMenuItem_Click);
+            this.степанскойВА2019ToolStripMenuItem.Click += new System.EventHandler(this.AuthourNameToolStripMenuItem_Click);
             // 
             // checkBox1
             // 
@@ -183,7 +183,7 @@
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 10;
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // numericUpDown1
             // 
@@ -197,7 +197,7 @@
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.NumericUpDown1_ValueChanged);
             // 
             // button1
             // 
@@ -207,7 +207,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "Незапл. заказы";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // getPlannedordersButton
             // 
@@ -217,7 +217,7 @@
             this.getPlannedordersButton.TabIndex = 13;
             this.getPlannedordersButton.Text = "Запл. заказы";
             this.getPlannedordersButton.UseVisualStyleBackColor = true;
-            this.getPlannedordersButton.Click += new System.EventHandler(this.getPlannedordersButton_Click);
+            this.getPlannedordersButton.Click += new System.EventHandler(this.GetPlannedordersButton_Click);
             // 
             // label1
             // 

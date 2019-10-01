@@ -16,14 +16,17 @@ namespace RoutePlanner
         int SelectedOrdersCount;
         readonly int OLExpansion = 2;
         int id1, id2;
+
         #region Функциональные объекты
         Form2 SettingsForm;
         Dictionary<string, int> Couriers = new Dictionary<string, int>();
-        Dictionary<int, string> Territories = new Dictionary<int, string>();
+        readonly Dictionary<int, string> Territories = new Dictionary<int, string>();
         List<string>[] OrderList;
         public int CourierOrdersCount => OrderList[listBox1.SelectedIndex].Count;
         public static string Url { get => AKDTools.Link; set => AKDTools.Link = value; }
+        public Form2 SettingsForm1 { get => SettingsForm; set => SettingsForm = value; }
         #endregion
+
         public Form1()
         {
             InitializeComponent();
@@ -72,9 +75,8 @@ namespace RoutePlanner
                     FillPostListBox();
                 }
             }
-
         }
-        private void driverButton_Click(object sender, EventArgs e)
+        private void DriverButton_Click(object sender, EventArgs e)
         {
             BackColor = Color.Red;
             //Запуск браузера.
@@ -107,7 +109,7 @@ namespace RoutePlanner
             button1.Enabled = DriverManager.IsRunning();
             listBox1.Enabled = true;
         }
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillDataGridByOrders();
             if (DriverManager.IsRunning())
@@ -116,22 +118,23 @@ namespace RoutePlanner
                 EnableSelectionButton();
             }
         }
-        private void startbutton_Click(object sender, EventArgs e)
+        private void Startbutton_Click(object sender, EventArgs e)
         {
             Planning(MaxOrdersPerTime, NextIndex);
             ButtonRename();
             restartButton.Enabled = true;
         }
-        private void restartButton_Click(object sender, EventArgs e)
+        private void RestartButton_Click(object sender, EventArgs e)
         {
             NewCourier();
             ButtonRename();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            SettingsForm1.Dispose();
             DriverManager.Quit();
         }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDown1.Enabled = checkBox1.Checked;
             label1.Visible = checkBox1.Checked;
@@ -140,7 +143,7 @@ namespace RoutePlanner
                 numericUpDown1.Value = 15M;
             }
         }
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             MaxOrdersPerTime = (int)numericUpDown1.Value;
         }
@@ -222,7 +225,8 @@ namespace RoutePlanner
         {
             startbutton.Text = NextIndex > 0 ? "Продолжить..." : "Выделение почты";
         }
-        private void Planning(int maxOrders, int index)
+                                                        //Поиск и выделение объектов на карте согласно выбраным территориям
+        private void Planning(int maxOrders, int index) //TODO: Нужен ли тут async/await?
         {
             AKDTools.ScriptInject();
             AKDTools.JQLoaderWait();
@@ -278,25 +282,29 @@ namespace RoutePlanner
                 listBox2.Items.Add(item.Value);
             }
         }
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
+        {
+            GetOrders(ref id1, AKDTools.GetOrders.All);
+        }
+        private void GetOrders(ref int position,AKDTools.GetOrders type)
         {
             try
             {
-                if (id1 == 0)
+                if (position == 0)
                 {
                     for (int i = 0; i < OrderList.Length; i++)
                     {
                         if (OrderList[i] == null)
                         {
-                            id1 = i;
-                            OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.All);
+                            position = i;
+                            OrderList[position] = AKDTools.GetOrderList(type);
                             break;
                         }
                     }
                 }
                 else
                 {
-                    OrderList[id1] = AKDTools.GetOrderList(AKDTools.GetOrders.All);
+                    OrderList[position] = AKDTools.GetOrderList(type);
                 }
             }
             catch (NullReferenceException)
@@ -306,53 +314,32 @@ namespace RoutePlanner
             }
             FillPostListBox();
         }
-        private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (SettingsForm.IsDisposed)
-                SettingsForm = new Form2();
-            SettingsForm.ShowDialog();
+            if (SettingsForm1.IsDisposed)
+                SettingsForm1 = new Form2();
+            SettingsForm1.ShowDialog();
         }
-        private void применитьНовыеНастройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ApplyNewSettinsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Territories.Clear();
             listBox2.Items.Clear();
             LoadSettings();
         }
-        private void getPlannedordersButton_Click(object sender, EventArgs e)
+        private void GetPlannedordersButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (id2 == 0)
-                {
-                    for (int i = 0; i < OrderList.Length; i++)
-                    {
-                        if (OrderList[i] == null)
-                        {
-                            id2 = i;
-                            OrderList[id2] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    OrderList[id2] = AKDTools.GetOrderList(AKDTools.GetOrders.Planned);
-                }
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Драйвер на запущен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            FillPostListBox();
+            GetOrders(ref id2, AKDTools.GetOrders.Planned);
         }
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
-
-        private void степанскойВА2019ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void QuitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Валерий Степанской 2017 - 2019\n\n\nПрограмма создана на основе проектов seleniumHQ, Json.Net, EPPlus", "О программе",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            DriverManager.Quit();
+            SettingsForm1.Dispose();
+            Environment.Exit(0);
         }
-
+        private void AuthourNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Валерий Степанской 2017 - 2019\n\n\nПрограмма создана на основе проектов:\n\nseleniumHQ\nJson.Net\nEPPlus", "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icon;
@@ -361,7 +348,7 @@ namespace RoutePlanner
             startbutton.Enabled = false;
             restartButton.Enabled = false;
             LoadSettings();
-            SettingsForm = new Form2();
+            SettingsForm1 = new Form2();
 
             toolTip1.SetToolTip(button1, "Загрузить список незапланированных заказов");
             toolTip1.SetToolTip(getPlannedordersButton, "Загрузить список запланированых заказов из всех рейсов");

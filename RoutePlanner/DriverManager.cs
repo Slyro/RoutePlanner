@@ -4,7 +4,7 @@ using System;
 
 namespace RoutePlanner
 {
-    class DriverManager
+    static class DriverManager
     {
         public static string CurrentWindowHande => PropertiesCollections.driver.CurrentWindowHandle;
         public static System.Collections.ObjectModel.ReadOnlyCollection<string> WindowHandles => PropertiesCollections.driver.WindowHandles;
