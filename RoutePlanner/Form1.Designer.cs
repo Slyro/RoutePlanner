@@ -38,10 +38,10 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingStripMenuButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.обновитьДанныйОМаршрутахToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.степанскойВА2019ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshRouteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Author2019ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
@@ -130,7 +130,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingStripMenuButton,
-            this.степанскойВА2019ToolStripMenuItem});
+            this.Author2019ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(396, 24);
@@ -140,40 +140,40 @@
             // settingStripMenuButton
             // 
             this.settingStripMenuButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.обновитьToolStripMenuItem,
-            this.обновитьДанныйОМаршрутахToolStripMenuItem,
-            this.выходToolStripMenuItem});
+            this.RefreshToolStripMenuItem,
+            this.RefreshRouteToolStripMenuItem,
+            this.CloseToolStripMenuItem});
             this.settingStripMenuButton.Name = "settingStripMenuButton";
             this.settingStripMenuButton.Size = new System.Drawing.Size(53, 20);
             this.settingStripMenuButton.Text = "Меню";
             // 
-            // обновитьToolStripMenuItem
+            // RefreshToolStripMenuItem
             // 
-            this.обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
-            this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
-            this.обновитьToolStripMenuItem.Text = "Настройки";
-            this.обновитьToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
+            this.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem";
+            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.RefreshToolStripMenuItem.Text = "Настройки";
+            this.RefreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
-            // обновитьДанныйОМаршрутахToolStripMenuItem
+            // RefreshRouteToolStripMenuItem
             // 
-            this.обновитьДанныйОМаршрутахToolStripMenuItem.Name = "обновитьДанныйОМаршрутахToolStripMenuItem";
-            this.обновитьДанныйОМаршрутахToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
-            this.обновитьДанныйОМаршрутахToolStripMenuItem.Text = "Обновить данный о маршрутах";
-            this.обновитьДанныйОМаршрутахToolStripMenuItem.Click += new System.EventHandler(this.ApplyNewSettinsToolStripMenuItem_Click);
+            this.RefreshRouteToolStripMenuItem.Name = "RefreshRouteToolStripMenuItem";
+            this.RefreshRouteToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.RefreshRouteToolStripMenuItem.Text = "Обновить данный о маршрутах";
+            this.RefreshRouteToolStripMenuItem.Click += new System.EventHandler(this.ApplyNewSettinsToolStripMenuItem_Click);
             // 
-            // выходToolStripMenuItem
+            // CloseToolStripMenuItem
             // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
+            this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
+            this.CloseToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.CloseToolStripMenuItem.Text = "Выход";
+            this.CloseToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
             // 
-            // степанскойВА2019ToolStripMenuItem
+            // Author2019ToolStripMenuItem
             // 
-            this.степанскойВА2019ToolStripMenuItem .Name = "степанскойВА2019ToolStripMenuItem";
-            this.степанскойВА2019ToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.степанскойВА2019ToolStripMenuItem.Text = "О программе";
-            this.степанскойВА2019ToolStripMenuItem.Click += new System.EventHandler(this.AuthourNameToolStripMenuItem_Click);
+            this.Author2019ToolStripMenuItem.Name = "Author2019ToolStripMenuItem";
+            this.Author2019ToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.Author2019ToolStripMenuItem.Text = "О программе";
+            this.Author2019ToolStripMenuItem.Click += new System.EventHandler(this.AuthourNameToolStripMenuItem_Click);
             // 
             // checkBox1
             // 
@@ -262,7 +262,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Route Planner v1.0.0.3";
+            this.Text = "Route Planner v1.0.0.3beta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -287,14 +287,14 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ToolStripMenuItem обновитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RefreshToolStripMenuItem;
         private System.Windows.Forms.Button getPlannedordersButton;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem обновитьДанныйОМаршрутахToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem степанскойВА2019ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RefreshRouteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Author2019ToolStripMenuItem;
     }
 }
 
